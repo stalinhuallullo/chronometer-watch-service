@@ -4,11 +4,6 @@ var app = require('./app');
 const Sequelize = require('sequelize');
 const sequelize = require('./database/connection');
 
-
-
-
-
-
 async function main(){
     try{
         sequelize.authenticate().then(() => {
@@ -16,7 +11,7 @@ async function main(){
           }).catch(err => {
             console.error('Unable to connect to the database:', err);
           }).finally(() => {
-            sequelize.close();
+            //sequelize.close();
           });
 
         await app.listen(3000);

@@ -12,3 +12,17 @@ CREATE DATABASE chronometer
     CONNECTION LIMIT = -1;
 
     
+
+CREATE TABLE IF NOT EXISTS public.markes
+(
+    id integer NOT NULL DEFAULT nextval('markes_id_seq'::regclass),
+    marke text COLLATE pg_catalog."default" NOT NULL,
+    status text COLLATE pg_catalog."default" NOT NULL,
+    date_register timestamp with time zone NOT NULL DEFAULT '2022-02-27 17:57:59.768-05'::timestamp with time zone,
+    CONSTRAINT markes_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.markes
+    OWNER to postgres;

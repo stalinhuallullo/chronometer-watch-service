@@ -1,25 +1,20 @@
 const Markes = require('../models/Markes');
+const { formatDate } = require('../utils/functions');
 
 async function createMark(req, res) {
     const { marke } = req.body;
 
     try {
-        const status = "1";
-        const date_register = "25/02/2022";
-
         const obj = {
             marke: marke, 
-            status: status, 
-            date_register: date_register
+            status: "1", 
+            date_register: formatDate(new Date())
         };
         const fields = {
             fields: ['marke', 'status', 'date_register']
         }
 
-        console.log("obj ==>", obj);
-        
         const newMark = await Markes.create(obj, fields);
-        console.log("newMark ==> ", newMark);
         if (newMark) {
             res.json(newMark)
         }
@@ -27,19 +22,36 @@ async function createMark(req, res) {
         console.log(error);
         res.status(500).json({
             message: "Error creando la marca",
-            data: {}
+            data: error
         })
     }
 
 }
 
 async function getAllMark(req, res) {
-    res.json({});
+    const all = await Markes.findAll();
+    res.json(all);
 }
 
 async function deleteMark(req, res) {
-    res.json({});
+    var { id } = req.params;
+    var rowCount = await Markes.destroy({
+        where: {
+            id
+        }
+    })
+    res.json(rowCount);
+}
+
+async function deleteAllMark(req, res) {
+    await Markes.destroy({
+        where: {},
+        truncate: true
+      })
+    res.json({
+        data:"Se elimino con exito"
+    });
 }
 
 
-module.exports = { getAllMark, createMark, deleteMark };
+module.exports = { getAllMark, createMark, deleteMark, deleteAllMark };

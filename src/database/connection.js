@@ -1,18 +1,13 @@
 const Sequelize = require('sequelize');
  
 const sequelize = new Sequelize(
-    'chronometer',//bd
-    'postgres',//user
-    'postgres',//pss
+    'chronometer',// DataBase
+    'postgres',//   User
+    'postgres',//   Password
     {
         host:'localhost',
         dialect: 'postgres',
-        dialectOptions: {
-            ssl: {
-                require: true,
-                rejectUnauthorized: false
-            }
-        },
+        port: 5433,
         logging: false
     }
 )
